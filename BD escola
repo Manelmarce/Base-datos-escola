@@ -1,0 +1,152 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.3
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: proxysql-01.dd.scip.local
+-- Temps de generació: 07-06-2023 a les 10:35:00
+-- Versió del servidor: 10.10.2-MariaDB-1:10.10.2+maria~deb11
+-- Versió de PHP: 8.1.13
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de dades: `ddb200259`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de la taula `Alumne`
+--
+
+CREATE TABLE `Alumne` (
+  `DNI` varchar(9) NOT NULL,
+  `NOM` varchar(50) NOT NULL,
+  `COGNOMS` varchar(100) NOT NULL,
+  `NAIXEMENT` date NOT NULL,
+  `codi_curs` int(2) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Bolcament de dades per a la taula `Alumne`
+--
+
+INSERT INTO `Alumne` (`DNI`, `NOM`, `COGNOMS`, `NAIXEMENT`, `codi_curs`) VALUES
+('123456789', 'Pere', 'Roig Andreu', '2007-01-01', 1),
+('987654321', 'Aina', 'Ferrer Pons', '2007-02-01', 1),
+('87654320C', 'Joan', 'Cabrer Torres', '2007-02-05', 3),
+('48761234D', 'Marta', 'Smith Llorens', '2007-03-01', 2),
+('11111111A', 'Andreu', 'Borràs Sans', '2008-01-01', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de la taula `Assignatura`
+--
+
+CREATE TABLE `Assignatura` (
+  `Codi` int(2) NOT NULL,
+  `Nom` varchar(30) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Bolcament de dades per a la taula `Assignatura`
+--
+
+INSERT INTO `Assignatura` (`Codi`, `Nom`) VALUES
+(1, 'Matemàtiques'),
+(2, 'Llengua catalana'),
+(3, 'Grec'),
+(4, 'Programació i tractament de da'),
+(5, 'Física'),
+(6, 'Religió'),
+(7, 'Dibuix tècnic');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de la taula `Curs`
+--
+
+CREATE TABLE `Curs` (
+  `Codi` int(2) NOT NULL,
+  `Número` int(1) NOT NULL,
+  `Grup` varchar(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Bolcament de dades per a la taula `Curs`
+--
+
+INSERT INTO `Curs` (`Codi`, `Número`, `Grup`) VALUES
+(2, 1, 'B'),
+(1, 1, 'A'),
+(3, 1, 'C'),
+(4, 1, 'D'),
+(5, 1, 'E');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de la taula `Disposa_curs_assignatura`
+--
+
+CREATE TABLE `Disposa_curs_assignatura` (
+  `codi_curs` int(11) NOT NULL,
+  `codi_assignatura` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Bolcament de dades per a la taula `Disposa_curs_assignatura`
+--
+
+INSERT INTO `Disposa_curs_assignatura` (`codi_curs`, `codi_assignatura`) VALUES
+(1, 3),
+(2, 1),
+(2, 2),
+(3, 3),
+(3, 6),
+(4, 5),
+(4, 7),
+(5, 4);
+
+--
+-- Índexs per a les taules bolcades
+--
+
+--
+-- Índexs per a la taula `Alumne`
+--
+ALTER TABLE `Alumne`
+  ADD PRIMARY KEY (`DNI`);
+
+--
+-- Índexs per a la taula `Assignatura`
+--
+ALTER TABLE `Assignatura`
+  ADD PRIMARY KEY (`Codi`);
+
+--
+-- Índexs per a la taula `Curs`
+--
+ALTER TABLE `Curs`
+  ADD PRIMARY KEY (`Codi`);
+
+--
+-- Índexs per a la taula `Disposa_curs_assignatura`
+--
+ALTER TABLE `Disposa_curs_assignatura`
+  ADD PRIMARY KEY (`codi_curs`,`codi_assignatura`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
